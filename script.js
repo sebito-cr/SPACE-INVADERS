@@ -8,15 +8,15 @@ function setup() {
 var [xpos, ypos, xspeed, yspeed] = [570, 550, 0, 0];
 
 function draw() {
-	background(225);
+	background(0);
 	
 	fill(0);
 	
 	fill(0, 255, 0);
 	rect(xpos, ypos, 60, 20);
 	
-	if(xpos >= 0 && xpos + 50 <= 500) xpos += xspeed;
-	if(ypos >= 0 && ypos + 50 <= 500) ypos += yspeed;
+	if(xpos >= 0 && xpos + 50 <= 650) xpos += xspeed;
+	if(ypos >= 0 && ypos + 50 <= 650) ypos += yspeed;
 }
 
 function keyPressed() {
