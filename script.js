@@ -15,8 +15,7 @@ function draw() {
 	fill(0, 255, 0);
 	rect(xpos, ypos, 60, 20);
 	
-	if(xpos >= 0 && xpos + 50 <= 650) xpos += xspeed;
-	if(ypos >= 0 && ypos + 50 <= 650) ypos += yspeed;
+	if(xpos >= 0 && xpos + 50 <= 1200) xpos += xspeed;
 }
 
 function keyPressed() {
