@@ -1,11 +1,14 @@
+var [xpos, ypos, xspeed, yspeed] = [570, 550, 0, 0];
+var bulletY,bulletX;
 
 
 function setup() {
 	createCanvas(1200, 600);
-
+  bulletY = 200;
+  bulletX = -100;
 }
 
-var [xpos, ypos, xspeed, yspeed] = [570, 550, 0, 0];
+
 
 function draw() {
 	background(0);
@@ -18,13 +21,18 @@ function draw() {
 	if(xpos >= 0 && xpos + 50 <= 1200) 
     xpos += xspeed;
   
-  if(xpos < 0 || xpos > 1200){
-  xpos = xpos * -0,01;
+  if(xpos <= 0 || xpos >= 1200){
+    xpos = xpos * -0,01;
   }
+
+  fill('red')
+  circle(bulletX,bulletY,10);
+  bulletY -= 10;
  
 }
 
 function keyPressed() {
+  console.log(keyCode);
 	switch(keyCode) {
 		case 37:
 		case 65:
@@ -33,9 +41,11 @@ function keyPressed() {
 		case 39:
 		case 68:
 			xspeed = 4;
-			break;
-		case 38:
-		case 87:
+			break;		
+    case 32:
+      bulletY = ypos - 12;
+      bulletX = xpos + 30;
+      break;
 	}
 }
 
