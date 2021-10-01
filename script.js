@@ -21,8 +21,11 @@ function draw() {
 	if(xpos >= 0 && xpos + 50 <= 1200) 
     xpos += xspeed;
   
-  if(xpos <= 0 || xpos >= 1200){
-    xpos = xpos * -0,01;
+  if(xpos <= 0){
+    xpos = xpos + 0.5;
+  }
+  if(xpos + 60 >= 1200){
+    xpos = xpos - 0.5;
   }
 
   fill('red')
