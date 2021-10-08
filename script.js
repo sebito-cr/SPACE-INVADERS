@@ -9,7 +9,6 @@ function setup() {
 }
 
 
-
 function draw() {
 	background(0);
 	
@@ -28,10 +27,15 @@ function draw() {
     xpos = xpos - 0.5;
   }
 
-  fill('red')
+  if(keyCode==32){
+    bullet();
+  }
+}
+
+function bullet(){
+  fill('white')
   circle(bulletX,bulletY,10);
   bulletY -= 10;
- 
 }
 
 function keyPressed() {
