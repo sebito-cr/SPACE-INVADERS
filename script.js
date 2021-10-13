@@ -16,6 +16,9 @@ function draw() {
 	
 	fill(0, 255, 0);
 	rect(xpos, ypos, 60, 20);
+
+  fill('green')
+  rect(570, 40, 20, 20)
 	
 	if(xpos >= 0 && xpos + 50 <= 1200) 
     xpos += xspeed;
