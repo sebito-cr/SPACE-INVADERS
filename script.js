@@ -1,22 +1,27 @@
 var gameState = 0; // 0 = menu, 1 = game, 2 = gameover
+
+class StartMenu{
+  constructor () {}
+  draw () {
+    background (0);
+    textSize (14);
+    fill ("white");
+    text ("Use arrow keys to move, space bar to shoot.", 210, 450);
+  }
+}
+
+class GameScreen{
+  constructor () {}
+  draw () {}
+}
+
 let Start_Menu = new StartMenu ();
 let Game_Screen = new GameScreen ();
 
-class StartMenu () {
-  constructor () {}
-  draw () {}
-}
-
-class GameScreen () {
-  constructor () {}
-  draw () {}
-}
-
 function setup() {
-	createCanvas(1200, 600);
+	createCanvas(700, 900);
 
 }
-
 
 function draw() {
 	background(0);
