@@ -1,7 +1,8 @@
 var gameState = 0; // 0 = menu, 1 = game, 2 = gameover
 const CANVAS_WIDTH = 700;
 const CANVAS_HEIGHT = 900;
-let playerImage;
+var playerImage;
+var alienImages;
 
 class StartMenu{
   constructor () {}
@@ -62,8 +63,6 @@ class Player{
   }
 }
 
-let player;
-
 class GameScreen{
   constructor () {}
   draw () {
@@ -82,15 +81,19 @@ class GameScreen{
   }
 }
 
-let Start_Menu = new StartMenu ();
-let Game_Screen = new GameScreen ();
+var Start_Menu = new StartMenu ();
+var Game_Screen = new GameScreen ();
 
 function setup() {
 	createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
 }
 
 function preload () {
-  playerImage = loadImage("player.png");
+  playerImage = loadImage("player1.png");
+  alienImages = new Array();
+  for (let i = 0; i < 3; i++) {
+    alienImages [i] = loadImage("alienImage/alien" + 1 + ".png");
+  }
 }
 
 function draw() {
