@@ -1,45 +1,33 @@
-var [xpos, ypos, xspeed, yspeed] = [570, 550, 0, 0];
-var bulletY,bulletX;
+var gameState = 0; // 0 = menu, 1 = game, 2 = gameover
+let Start_Menu = new StartMenu ();
+let Game_Screen = new GameScreen ();
 
+class StartMenu () {
+  constructor () {}
+  draw () {}
+}
+
+class GameScreen () {
+  constructor () {}
+  draw () {}
+}
 
 function setup() {
 	createCanvas(1200, 600);
-  bulletY = 200;
-  bulletX = -100;
+
 }
 
 
 function draw() {
 	background(0);
-	
-	fill(0);
-	
-	fill(0, 255, 0);
-	rect(xpos, ypos, 60, 20);
-
-  fill('green')
-  rect(570, 40, 20, 20)
-	
-	if(xpos >= 0 && xpos + 50 <= 1200) 
-    xpos += xspeed;
-  
-  if(xpos <= 0){
-    xpos = xpos + 0.5;
+  if (gameState == 0) {
+    Start_Menu.draw ();
   }
-  if(xpos + 60 >= 1200){
-    xpos = xpos - 0.5;
-  }
-
-  if(keyCode==32){
-    bullet();
+  else if (gameState == 1) {
+    Game_Screen.draw ();
   }
 }
 
-function bullet(){
-  fill('white')
-  circle(bulletX,bulletY,10);
-  bulletY -= 10;
-}
 
 function keyPressed() {
   console.log(keyCode);
