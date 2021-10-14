@@ -78,6 +78,8 @@ class Invader{
   draw () {
     if (Invader.delay_counter == 0) {
       this.xpos = this.xpos + Invader.xspeed;
+      this.ypos = this.ypos + Invader.yspeed;
+
     }
     copy(alienImage, 0, 0, 259, 194, this.xpos, this.ypos, Invader.width, Invader.height);
   }
@@ -91,20 +93,34 @@ class Invader{
     return 0;
   }
   static checkDirection (invaders) {
+    if (Invader.delay_counter == 0) return;
     for (let i = 0; i < invaders.length; i++) {
       let d = invaders [i].checkPosition ();
       if (d < 0) {
-        Invader.xspeed = -4;
+        if (Invader.yspeed == 0 ) {
+          Invader.yspeed = 4;
+          Invader.xspeed = 0;
+        } else {
+          Invader.xspeed = -4;
+          Invader.yspeed = 0;
+        }
         break;
       }
       else if (d > 0) {
-        Invader.xspeed = 4;
+        if (Invader.yspeed == 0 ) {
+          Invader.yspeed = 4;
+          Invader.xspeed = 0;
+        } else {
+          Invader.xspeed = 4;
+          Invader.yspeed = 0;
+        }
         break;
       }
+      
     }
   }
   static startGame () {
-    Invader.delay = 30;
+    Invader.delay = 5;
     Invader.delay_counter = Invader.delay;
     Invader.xspeed = 4;
   }
