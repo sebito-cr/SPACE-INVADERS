@@ -2,7 +2,7 @@ var gameState = 0; // 0 = menu, 1 = game, 2 = gameover
 const CANVAS_WIDTH = 700;
 const CANVAS_HEIGHT = 900;
 var playerImage;
-var alienImages;
+var alienImage;
 
 class StartMenu{
   constructor () {}
@@ -72,7 +72,7 @@ class Invader{
     this.ypos = ypos;
   }
   draw () {
-    copy(alienImages[this.type], 0, 0, 250, 250, this.xpos, this.ypos, Invader.width, Invader.height);
+    copy(alienImage, 0, 0, 259, 194, this.xpos, this.ypos, Invader.width, Invader.height);
     //console.log (width);
   }
 }
@@ -92,7 +92,7 @@ class GameScreen{
     this.invaders = new Array ();
     for (let row = 0; row < 3; row++) {
       for (let column = 0; column < 9; column++) {
-        this.invaders.push (new Invader (row, column*Invader.width*1.5, row*Invader.height*1.5));
+        this.invaders.push (new Invader (row, column*Invader.width*2 + (CANVAS_WIDTH/2 - Invader.width*9), row*Invader.height*2 + CANVAS_HEIGHT/8));
       }
     }
   }
@@ -113,10 +113,7 @@ function setup() {
 
 function preload () {
   playerImage = loadImage("player1.png");
-  alienImages = new Array();
-  for (let i = 0; i < 3; i++) {
-    alienImages [i] = loadImage("alienImage/alien" + 1 + ".png");
-  }
+  alienImage = loadImage("alienImage/alien.png");
 }
 
 function draw() {
