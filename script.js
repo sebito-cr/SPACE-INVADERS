@@ -66,14 +66,55 @@ class Player{
 class Invader{
   static width = 30;
   static height = 30;
+  static delay = 1;
+  static delay_counter = 1;
+  static xspeed = 4;
+  static yspeed = 0;
   constructor (type, xpos, ypos) {
     this.type = type;
     this.xpos = xpos;
     this.ypos = ypos;
   }
   draw () {
+    if (Invader.delay_counter == 0) {
+      this.xpos = this.xpos + Invader.xspeed;
+    }
     copy(alienImage, 0, 0, 259, 194, this.xpos, this.ypos, Invader.width, Invader.height);
-    //console.log (width);
+  }
+  checkPosition () {
+    if (CANVAS_WIDTH < this.xpos) {
+      return - 4;
+    }
+    if (this.xpos < 0) {
+      return 4;
+    }
+    return 0;
+  }
+  static checkDirection (invaders) {
+    for (let i = 0; i < invaders.length; i++) {
+      let d = invaders [i].checkPosition ();
+      if (d < 0) {
+        Invader.xspeed = -4;
+        break;
+      }
+      else if (d > 0) {
+        Invader.xspeed = 4;
+        break;
+      }
+    }
+  }
+  static startGame () {
+    Invader.delay = 30;
+    Invader.delay_counter = Invader.delay;
+    Invader.xspeed = 4;
+  }
+  static updateCounter () {
+    if (Invader.delay_counter == 0) {
+      Invader.delay_counter = Invader.delay;
+    }
+    else {
+      Invader.delay_counter = Invader.delay_counter - 1;
+    }
   }
 }
 
@@ -82,6 +123,8 @@ class GameScreen{
   draw () {
     background (0);
     this.player.draw ();
+    Invader.updateCounter ();
+    Invader.checkDirection (this.invaders);
     for (let i = 0; i < this.invaders.length; i++) {
       this.invaders [i].draw ();
     }
@@ -90,6 +133,7 @@ class GameScreen{
     gameState = 1;
     this.player = new Player ();
     this.invaders = new Array ();
+    Invader.startGame ();
     for (let row = 0; row < 3; row++) {
       for (let column = 0; column < 9; column++) {
         this.invaders.push (new Invader (row, column*Invader.width*2 + (CANVAS_WIDTH/2 - Invader.width*9), row*Invader.height*2 + CANVAS_HEIGHT/8));
