@@ -63,15 +63,38 @@ class Player{
   }
 }
 
+class Invader{
+  static width = 30;
+  static height = 30;
+  constructor (type, xpos, ypos) {
+    this.type = type;
+    this.xpos = xpos;
+    this.ypos = ypos;
+  }
+  draw () {
+    copy(alienImages[this.type], 0, 0, 250, 250, this.xpos, this.ypos, Invader.width, Invader.height);
+    //console.log (width);
+  }
+}
+
 class GameScreen{
   constructor () {}
   draw () {
     background (0);
     this.player.draw ();
+    for (let i = 0; i < this.invaders.length; i++) {
+      this.invaders [i].draw ();
+    }
   }
   startGame () {
     gameState = 1;
     this.player = new Player ();
+    this.invaders = new Array ();
+    for (let row = 0; row < 3; row++) {
+      for (let column = 0; column < 9; column++) {
+        this.invaders.push (new Invader (row, column*Invader.width*1.5, row*Invader.height*1.5));
+      }
+    }
   }
   keyPressed () {
     this.player.keyPressed ();
