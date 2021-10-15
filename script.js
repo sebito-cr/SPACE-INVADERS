@@ -34,6 +34,9 @@ class WinScreen {
     textAlign(CENTER);
     text("You win!", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
   }
+  win(){
+    gameState = 2
+  }
 }
 
 class LoseScreen {
@@ -214,6 +217,9 @@ class GameScreen {
     bullets.forEach((b) => {
       b.draw();
     });
+    if (this.invaders.length == 0) {
+      Win_Screen.win();
+    }
   }
   startGame() {
     gameState = 1;
