@@ -43,17 +43,14 @@ class Player {
     copy(playerImage, 0, 0, 415, 257, this.xpos, this.ypos, this.width, this.height);
   }
   shoot() {
-    console.log("Pew!")
     bullets.push(new Bullet(this.xpos, this.ypos));
-    console.log(bullets)
     
   }
   keyPressed() {
-    if (keyCode == 32) {
-      this.shoot();
-    }
-
     switch (keyCode) {
+      case 32:
+        this.shoot();
+        break;
       case 37:
         this.xspeed = -4;
         break;
@@ -147,7 +144,7 @@ class Invader {
 
 class Bullet {
   constructor(x, y) {
-    this.x = x;
+    this.x = x + 19;
     this.y = y;
     this.w = 10;
     this.h = 10;
@@ -158,8 +155,15 @@ class Bullet {
     rect(this.x, this.y, this.w, this.h);
     this.y -= 15;
   }
-  checkCollision(){
-    
+  checkCollision(invaders){
+    for (let i = 0; i < invaders.length; i++) {
+      if (invaders[i].xpos < this.x && this.x < invaders[i].xpos + Invader.width){
+        if (invaders[i].ypos < this.y && this.y < invaders[i].ypos + Invader.height){
+          return i;
+        }
+      }
+    }
+    return -1;
   }
 }
 
@@ -173,7 +177,17 @@ class GameScreen {
     for (let i = 0; i < this.invaders.length; i++) {
       this.invaders[i].draw();
     }
-
+    for (let i = 0; i < bullets.length; i++){
+      if (bullets[i].y < 0){
+        bullets.splice(i--,1);
+        continue;
+      }
+      let invaderD = bullets[i].checkCollision(this.invaders);
+      if (invaderD != -1){
+        this.invaders.splice(invaderD,1);
+        bullets.splice(i--,1);
+      }
+    }
     bullets.forEach((b) => {
       b.draw();
     });
