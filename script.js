@@ -1,4 +1,4 @@
-var gameState = 0; // 0 = menu, 1 = game, 2 = gameover
+var gameState = 0; // 0 = menu, 1 = game, 2 = win, 3 = loss
 const CANVAS_WIDTH = 700;
 const CANVAS_HEIGHT = 900;
 var playerImage;
@@ -25,6 +25,29 @@ class StartMenu {
   }
 }
 
+class WinScreen {
+  constructor() {}
+  draw(){
+    background(0);
+    textSize(14);
+    fill("white");
+    textAlign(CENTER);
+    text("You win!", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+  }
+}
+
+class LoseScreen {
+  constructor() {}
+  draw(){
+    background(0);
+    textSize(14);
+    fill("white");
+    textAlign(CENTER);
+    text("You lose :(", CANVAS_WIDTH / 2, CANVAS_HEIGHT / 2);
+  }
+}
+
+
 class Player {
   constructor() {
     this.xpos = CANVAS_WIDTH / 2;
@@ -44,7 +67,7 @@ class Player {
   }
   shoot() {
     bullets.push(new Bullet(this.xpos, this.ypos));
-    
+
   }
   keyPressed() {
     switch (keyCode) {
@@ -150,15 +173,15 @@ class Bullet {
     this.h = 10;
     this.c = "yellow";
   }
-  draw() {  
+  draw() {
     fill(this.c);
     rect(this.x, this.y, this.w, this.h);
     this.y -= 15;
   }
-  checkCollision(invaders){
+  checkCollision(invaders) {
     for (let i = 0; i < invaders.length; i++) {
-      if (invaders[i].xpos < this.x && this.x < invaders[i].xpos + Invader.width){
-        if (invaders[i].ypos < this.y && this.y < invaders[i].ypos + Invader.height){
+      if (invaders[i].xpos < this.x && this.x < invaders[i].xpos + Invader.width) {
+        if (invaders[i].ypos < this.y && this.y < invaders[i].ypos + Invader.height) {
           return i;
         }
       }
@@ -177,15 +200,15 @@ class GameScreen {
     for (let i = 0; i < this.invaders.length; i++) {
       this.invaders[i].draw();
     }
-    for (let i = 0; i < bullets.length; i++){
-      if (bullets[i].y < 0){
-        bullets.splice(i--,1);
+    for (let i = 0; i < bullets.length; i++) {
+      if (bullets[i].y < 0) {
+        bullets.splice(i--, 1);
         continue;
       }
       let invaderD = bullets[i].checkCollision(this.invaders);
-      if (invaderD != -1){
-        this.invaders.splice(invaderD,1);
-        bullets.splice(i--,1);
+      if (invaderD != -1) {
+        this.invaders.splice(invaderD, 1);
+        bullets.splice(i--, 1);
       }
     }
     bullets.forEach((b) => {
@@ -213,6 +236,8 @@ class GameScreen {
 
 var Start_Menu = new StartMenu();
 var Game_Screen = new GameScreen();
+var Win_Screen = new WinScreen();
+var Lose_Screen = new LoseScreen();
 
 function setup() {
   createCanvas(CANVAS_WIDTH, CANVAS_HEIGHT);
@@ -230,6 +255,12 @@ function draw() {
   }
   else if (gameState == 1) {
     Game_Screen.draw();
+  }
+  else if (gameState == 2) {
+    Win_Screen.draw();
+  }
+  else if (gameState == 3) {
+    Lose_Screen.draw();
   }
 }
 
@@ -251,4 +282,10 @@ function keyReleased() {
   else if (gameState == 1) {
     Game_Screen.keyReleased();
   }
+}
+
+function randomInvader() {
+  var random = invaders[Math.floor(Math.random() * invaders.length)];
+  invaderBullet = new invaderBullet(random.x, random.y);
+  invaderBullets.push(invaderBullet);
 }
