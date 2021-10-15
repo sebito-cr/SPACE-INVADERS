@@ -132,7 +132,7 @@ class Invader {
       let d = invaders[i].checkPosition();
       if (d < 0) {
         if (Invader.yspeed == 0) {
-          Invader.yspeed = 4;
+          Invader.yspeed = 15;
           Invader.xspeed = 0;
         } else {
           Invader.xspeed = -4;
@@ -142,7 +142,7 @@ class Invader {
       }
       else if (d > 0) {
         if (Invader.yspeed == 0) {
-          Invader.yspeed = 4;
+          Invader.yspeed = 15;
           Invader.xspeed = 0;
         } else {
           Invader.xspeed = 4;
@@ -154,7 +154,7 @@ class Invader {
     }
   }
   static startGame() {
-    Invader.delay = 5;
+    Invader.delay = 1;
     Invader.delay_counter = Invader.delay;
     Invader.xspeed = 4;
   }
